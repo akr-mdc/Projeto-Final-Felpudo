@@ -6,80 +6,58 @@ using UnityEngine.UI;
 public class Boss_Level3 : MonoBehaviour
 {
     [Header("Movement")]
-    public float speed = 2f;
+    public float moveSpeed = 2f;
     public Transform leftLimit;
     public Transform rightLimit;
-    public float verticalOscillation = 0.5f;
-    public float verticalSpeed = 2f;
+    private bool movingRight = true;
 
-    private Vector3 originalPosition;
-    private int direction = 1; // 1 = direita, -1 = esquerda
-
-    [Header("Health")]
-    public int maxHealth = 10;
+    [Header("HP")]
+    public int maxHealth = 50;
     private int currentHealth;
-    public Slider healthBar;
 
-    [Header("Attack")]
-    public GameObject stalactitePrefab;
-    public Transform attackSpawnPoint;
-    public float attackCooldown = 3f;
-
-    [Header("Visual")]
+    [Header("Damage Flash")]
     public SpriteRenderer spriteRenderer;
-    public Color flashColor = Color.red;
     public float flashDuration = 0.2f;
 
-    private Color originalColor;
+    [Header("Attack")]
+    public Transform stalactiteSpawnPoint;
+    public GameObject stalactitePrefab;
+    public float attackInterval = 3f;
 
     void Start()
     {
         currentHealth = maxHealth;
-        if (healthBar != null)
-        {
-            healthBar.maxValue = maxHealth;
-            healthBar.value = currentHealth;
-        }
-
-        originalPosition = transform.position;
-
-        if (spriteRenderer != null)
-            originalColor = spriteRenderer.color;
-
         StartCoroutine(AttackRoutine());
     }
 
     void Update()
     {
-        HandleMovement();
+        Move();
     }
 
-    void HandleMovement()
+    void Move()
     {
-        // Movimento horizontal
-        transform.position += Vector3.right * speed * direction * Time.deltaTime;
-
-        // Inverte direção nos limites
-        if (transform.position.x >= rightLimit.position.x)
-            direction = -1;
-        else if (transform.position.x <= leftLimit.position.x)
-            direction = 1;
-
-        // Oscilação vertical
-        Vector3 pos = transform.position;
-        pos.y = originalPosition.y + Mathf.Sin(Time.time * verticalSpeed) * verticalOscillation;
-        transform.position = pos;
+        if (movingRight)
+        {
+            transform.position += Vector3.right * moveSpeed * Time.deltaTime;
+            if (transform.position.x >= rightLimit.position.x) movingRight = false;
+        }
+        else
+        {
+            transform.position += Vector3.left * moveSpeed * Time.deltaTime;
+            if (transform.position.x <= leftLimit.position.x) movingRight = true;
+        }
     }
 
-    IEnumerator AttackRoutine()
+    System.Collections.IEnumerator AttackRoutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(attackCooldown);
+            yield return new WaitForSeconds(attackInterval);
 
-            if (stalactitePrefab != null && attackSpawnPoint != null)
+            if (stalactitePrefab != null && stalactiteSpawnPoint != null)
             {
-                Instantiate(stalactitePrefab, attackSpawnPoint.position, Quaternion.identity);
+                Instantiate(stalactitePrefab, stalactiteSpawnPoint.position, Quaternion.identity);
             }
         }
     }
@@ -87,37 +65,23 @@ public class Boss_Level3 : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
-        if (healthBar != null)
-            healthBar.value = currentHealth;
-
+        if (currentHealth < 0) currentHealth = 0;
         StartCoroutine(Flash());
 
-        if (currentHealth <= 0)
-        {
-            currentHealth = 0;
-            Die();
-        }
+        GameManager_Level3.Instance?.TakeBossDamage(amount); // Atualiza barra de HP
     }
 
-    IEnumerator Flash()
+    private System.Collections.IEnumerator Flash()
     {
         if (spriteRenderer != null)
         {
-            spriteRenderer.color = flashColor;
+            spriteRenderer.color = Color.red;
             yield return new WaitForSeconds(flashDuration);
-            spriteRenderer.color = originalColor;
+            spriteRenderer.color = Color.white;
         }
     }
-
-    void Die()
-    {
-        // Desativa o Boss
-        gameObject.SetActive(false);
-
-        // Informa ao GameManager
-        GameManager_Level3.Instance.BossDefeated();
-    }
 }
+
 
 
 

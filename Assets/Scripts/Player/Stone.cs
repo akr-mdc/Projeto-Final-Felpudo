@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Stone : MonoBehaviour
 {
-    public int damage = 5;                  // Quanto dano a pedra causa ao Boss
-    public float lifeTime = 5f;             // Destrói automaticamente após x segundos
-    public GameObject hitEffect;            // Opcional: efeito de partículas ao colidir
+    public int damage = 5;                  // Dano ao Boss
+    public float lifeTime = 5f;             // Destrói automaticamente
+    public GameObject hitEffect;            // Efeito de partículas
 
     void Start()
     {
@@ -18,20 +18,22 @@ public class Stone : MonoBehaviour
         // Pedra atinge o Boss
         if (collision.gameObject.CompareTag("Boss"))
         {
-            if (GameManager_Level3.Instance != null)
-            {
-                GameManager_Level3.Instance.TakeBossDamage(damage);
-            }
-            if (hitEffect != null) Instantiate(hitEffect, transform.position, Quaternion.identity);
+            GameManager_Level3.Instance?.TakeBossDamage(damage);
+
+            if (hitEffect != null)
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
+
             Destroy(gameObject);
         }
-
         // Pedra atinge o chão
         else if (collision.gameObject.CompareTag("Ground"))
         {
-            if (hitEffect != null) Instantiate(hitEffect, transform.position, Quaternion.identity);
+            if (hitEffect != null)
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
+
             Destroy(gameObject);
         }
     }
 }
+
 

@@ -10,7 +10,7 @@ public class Player_Level3 : MonoBehaviour
     private Vector2 movement;
     private Vector3 originalScale;
 
-    [Header("Animator")]
+[Header("Animator")]
     public Animator anim;
 
     [Header("Stone Throwing")]
@@ -34,22 +34,22 @@ public class Player_Level3 : MonoBehaviour
         HandleThrow();
     }
 
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
     void HandleMovement()
     {
         float h = Input.GetAxisRaw("Horizontal");
         movement = new Vector2(h, 0f);
 
-        // Update Animator
+        // Atualiza Animator
         anim.SetFloat("Speed", Mathf.Abs(h));
 
-        // Flip player
+        // Flip player sem alterar escala absoluta
         if (h > 0f) transform.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
         else if (h < 0f) transform.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
-    }
-
-    void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
     void HandleThrow()
@@ -58,7 +58,11 @@ public class Player_Level3 : MonoBehaviour
         {
             GameObject stone = Instantiate(stonePrefab, throwPoint.position, Quaternion.identity);
             Rigidbody2D stoneRb = stone.GetComponent<Rigidbody2D>();
-            stoneRb.velocity = Vector2.up * throwForce;
+            if (stoneRb != null)
+            {
+                // Lança para cima (pode ser ajustado para diagonal, se quiser)
+                stoneRb.velocity = Vector2.up * throwForce;
+            }
         }
     }
 
@@ -87,7 +91,9 @@ public class Player_Level3 : MonoBehaviour
             Destroy(collision.gameObject);
         }
     }
+
 }
+
 
 
 
