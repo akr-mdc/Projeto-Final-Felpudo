@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class MainMenuController : MonoBehaviour
 {
-    public void OnPlayButton()
+    // Botão "Iniciar Jogo" no menu principal
+    public void OnStartGamePressed()
     {
-        if (GameManager.Instance == null)
+        if (GameManager.Instance != null)
         {
-            var go = new GameObject("GameManager");
-            go.AddComponent<GameManager>();
+            // Começa pelo Nível 1
+            GameManager.Instance.StartLevel(1);
         }
-        GameManager.Instance.StartLevel(1);
     }
 
-    public void OnQuitButton()
+    // Botão "Sair" no menu principal
+    public void OnQuitPressed()
     {
         Application.Quit();
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
     }
 }
+

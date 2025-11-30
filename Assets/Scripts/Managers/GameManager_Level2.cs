@@ -1,29 +1,24 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class GameManager_Level2 : MonoBehaviour
 {
     public static GameManager_Level2 Instance;
 
-    [Header("Lives")]
     public int maxLives = 3;
     private int currentLives;
-
     public Image[] lifeIcons;
 
-    [Header("Timer")]
     public float surviveTime = 30f;
     private float timer;
     public TextMeshProUGUI timerText;
 
-    [Header("Screens")]
-    public GameObject winScreen;
-    public GameObject loseScreen;
-
-    [Header("Player Flash")]
     public PlayerCombat_Level2 playerCombat;
+
+    private LevelManager levelManager;
 
     void Awake()
     {
@@ -32,8 +27,11 @@ public class GameManager_Level2 : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         currentLives = maxLives;
         timer = surviveTime;
+        levelManager = FindObjectOfType<LevelManager>();
+
         UpdateLivesUI();
         UpdateTimerUI();
     }
@@ -41,55 +39,42 @@ public class GameManager_Level2 : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
+        if (timer < 0f) timer = 0f;
+
         UpdateTimerUI();
 
         if (timer <= 0)
         {
-            Win();
+            Victory();
         }
     }
 
     public void TakeDamage()
     {
         currentLives--;
-
-        if (playerCombat != null)
-            playerCombat.TriggerFlash();
+        playerCombat?.TriggerFlash();
 
         UpdateLivesUI();
 
         if (currentLives <= 0)
-        {
-            Lose();
-        }
+            Defeat();
     }
-
-    // ----------------- UI -----------------
 
     void UpdateLivesUI()
     {
         for (int i = 0; i < lifeIcons.Length; i++)
-        {
             lifeIcons[i].gameObject.SetActive(i < currentLives);
-        }
     }
 
     void UpdateTimerUI()
     {
-        timerText.text = "Tempo: " + Mathf.Ceil(timer);
+        if (timerText != null)
+            timerText.text = "Tempo: " + Mathf.Ceil(timer);
     }
 
-    // ----------------- FIM DE JOGO -----------------
-
-    void Win()
-    {
-        winScreen.SetActive(true);
-        Time.timeScale = 0f;
-    }
-
-    void Lose()
-    {
-        loseScreen.SetActive(true);
-        Time.timeScale = 0f;
-    }
+    void Victory() => levelManager?.OnLevelComplete();
+    void Defeat() => levelManager?.OnPlayerDefeated();
 }
+
+
+

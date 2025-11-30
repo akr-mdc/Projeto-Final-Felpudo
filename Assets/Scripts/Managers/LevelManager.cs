@@ -9,31 +9,36 @@ public class LevelManager : MonoBehaviour
     public GameObject victoryCanvas;
     public GameObject defeatCanvas;
 
-    void Start()
+    private void Start()
     {
+        // Garantir que o jogo comece ativo
+        Time.timeScale = 1f;
+
         if (victoryCanvas) victoryCanvas.SetActive(false);
         if (defeatCanvas) defeatCanvas.SetActive(false);
     }
 
+    // Chamado quando o jogador vence
     public void OnLevelComplete()
     {
         if (victoryCanvas) victoryCanvas.SetActive(true);
         Time.timeScale = 0f;
     }
 
+    // Chamado quando o jogador perde
     public void OnPlayerDefeated()
     {
         if (defeatCanvas) defeatCanvas.SetActive(true);
         Time.timeScale = 0f;
     }
 
+    // Botões UI
     public void OnNextLevelPressed()
     {
         Time.timeScale = 1f;
+
         if (GameManager.Instance != null)
         {
-            int next = GameManager.Instance.currentLevel + 1;
-            GameManager.Instance.currentLevel = Mathf.Clamp(next, 1, 3);
             string nextScene = GameManager.Instance.GetNextStoryOrEnd();
             SceneManager.LoadScene(nextScene);
         }
@@ -46,8 +51,12 @@ public class LevelManager : MonoBehaviour
     public void OnRetryPressed()
     {
         Time.timeScale = 1f;
-        int lvl = GameManager.Instance != null ? GameManager.Instance.currentLevel : 1;
-        SceneManager.LoadScene($"Level{lvl}_Play");
+
+        if (GameManager.Instance != null)
+        {
+            string playScene = GameManager.Instance.GetPlaySceneName();
+            SceneManager.LoadScene(playScene);
+        }
     }
 
     public void OnBackToMenuPressed()
@@ -56,3 +65,5 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 }
+
+
