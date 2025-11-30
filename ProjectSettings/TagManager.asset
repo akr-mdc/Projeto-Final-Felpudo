@@ -8,6 +8,8 @@ TagManager:
   - DestroyZone
   - PlayerHitbox
   - Boss
+  - Stalactite
+  - Ground
   layers:
   - Default
   - TransparentFX

@@ -6,24 +6,25 @@ public class Player_Level3 : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
-    private Vector3 originalScale;
     private Rigidbody2D rb;
-    private Animator anim;
+    private Vector2 movement;
+    private Vector3 originalScale;
 
-    [Header("Throwing")]
+    [Header("Animator")]
+    public Animator anim;
+
+    [Header("Stone Throwing")]
     public GameObject stonePrefab;
     public Transform throwPoint;
+    public float throwForce = 10f;
 
-    [Header("Player Flash")]
+    [Header("Damage Flash")]
     public SpriteRenderer spriteRenderer;
-    public float flashDuration = 0.1f;
-
-    private Vector2 movement;
+    public float flashDuration = 0.2f;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
         originalScale = transform.localScale;
     }
 
@@ -31,36 +32,33 @@ public class Player_Level3 : MonoBehaviour
     {
         HandleMovement();
         HandleThrow();
-        UpdateAnimation();
     }
 
     void HandleMovement()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        movement = new Vector2(moveX, 0f) * moveSpeed;
+        float h = Input.GetAxisRaw("Horizontal");
+        movement = new Vector2(h, 0f);
 
-        // Virar Player sem alterar escala
-        if (moveX != 0)
-        {
-            transform.localScale = new Vector3(Mathf.Sign(moveX) * Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
-        }
+        // Update Animator
+        anim.SetFloat("Speed", Mathf.Abs(h));
+
+        // Flip player
+        if (h > 0f) transform.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
+        else if (h < 0f) transform.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
     }
 
     void FixedUpdate()
     {
-        rb.velocity = new Vector2(movement.x, rb.velocity.y);
-    }
-
-    void UpdateAnimation()
-    {
-        anim.SetFloat("Speed", Mathf.Abs(movement.x));
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
     }
 
     void HandleThrow()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && stonePrefab != null && throwPoint != null)
+        if (Input.GetKeyDown(KeyCode.Space) && stonePrefab != null)
         {
-            Instantiate(stonePrefab, throwPoint.position, Quaternion.identity);
+            GameObject stone = Instantiate(stonePrefab, throwPoint.position, Quaternion.identity);
+            Rigidbody2D stoneRb = stone.GetComponent<Rigidbody2D>();
+            stoneRb.velocity = Vector2.up * throwForce;
         }
     }
 
@@ -70,7 +68,7 @@ public class Player_Level3 : MonoBehaviour
             StartCoroutine(FlashCoroutine());
     }
 
-    System.Collections.IEnumerator FlashCoroutine()
+    private System.Collections.IEnumerator FlashCoroutine()
     {
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(flashDuration);
@@ -79,12 +77,18 @@ public class Player_Level3 : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("EnemyAttack"))
+        // Recebe dano de estalactites
+        if (collision.gameObject.CompareTag("Stalactite"))
         {
-            GameManager_Level3.Instance.TakeDamage();
+            if (GameManager_Level3.Instance != null)
+            {
+                GameManager_Level3.Instance.TakeDamage();
+            }
+            Destroy(collision.gameObject);
         }
     }
 }
+
 
 
 
