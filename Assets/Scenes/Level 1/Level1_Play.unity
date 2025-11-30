@@ -2369,8 +2369,8 @@ MonoBehaviour:
   - {fileID: 877821750}
   - {fileID: 502335252}
   - {fileID: 1298506678}
-  survivalTime: 10
   timerText: {fileID: 799511541}
+  survivalTime: 10
 --- !u!4 &1791061928
 Transform:
   m_ObjectHideFlags: 0
@@ -3051,7 +3051,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4726551586327688490, guid: bc097983ce36ae04bb73d3bbf970d366, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 4726551586327688490, guid: bc097983ce36ae04bb73d3bbf970d366, type: 3}
       propertyPath: m_LocalPosition.z
