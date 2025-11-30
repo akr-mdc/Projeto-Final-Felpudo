@@ -27,15 +27,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 2/Level2_Play.unity
     guid: e8d8e9ce4a7810247a14efbd0bc922ed
   - enabled: 1
-    path: Assets/Scenes/Level 3/Level3_Story.unity
-    guid: e0bb9f81d946ac2458906b4d8d3ebede
-  - enabled: 1
-    path: Assets/Scenes/Level 3/Level3_Tutorial.unity
-    guid: e1ed29fde6686dd41959a2ea2a90c168
-  - enabled: 1
-    path: Assets/Scenes/Level 3/Level3_Play.unity
-    guid: b871bb4ab034445499baf1def5244aef
-  - enabled: 1
     path: Assets/Scenes/EndGame.unity
     guid: 1ca6d08f93bac3f4c8e670973ba87a3e
   m_configObjects: {}
