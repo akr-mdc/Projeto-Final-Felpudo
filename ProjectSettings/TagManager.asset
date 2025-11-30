@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - DestroyZone
+  - PlayerHitbox
   layers:
   - Default
   - TransparentFX

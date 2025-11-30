@@ -9,6 +9,7 @@ public class BGScroller : MonoBehaviour
 
     public Transform bg1;
     public Transform bg2;
+    public Transform bg3;
 
     void Start()
     {
@@ -17,19 +18,30 @@ public class BGScroller : MonoBehaviour
 
     void Update()
     {
-        // mover os dois
+        // mover todas as imagens
         bg1.Translate(Vector2.left * scrollSpeed * Time.deltaTime);
         bg2.Translate(Vector2.left * scrollSpeed * Time.deltaTime);
+        bg3.Translate(Vector2.left * scrollSpeed * Time.deltaTime);
 
-        // quando um sai completamente da tela...
-        if (bg1.position.x <= -bgWidth)
-        {
-            bg1.position = new Vector3(bg2.position.x + bgWidth, bg1.position.y, bg1.position.z);
-        }
+        // reposicionar quando saem da tela
+        CheckAndReposition(bg1, bg2, bg3);
+        CheckAndReposition(bg2, bg3, bg1);
+        CheckAndReposition(bg3, bg1, bg2);
+    }
 
-        if (bg2.position.x <= -bgWidth)
+    void CheckAndReposition(Transform bg, Transform right1, Transform right2)
+    {
+        // se bg saiu totalmente da tela para a esquerda...
+        if (bg.position.x <= -bgWidth)
         {
-            bg2.position = new Vector3(bg1.position.x + bgWidth, bg2.position.y, bg2.position.z);
+            // reposiciona ele para a direita da imagem mais à direita
+            float rightmostX = Mathf.Max(right1.position.x, right2.position.x);
+
+            bg.position = new Vector3(
+                rightmostX + bgWidth,
+                bg.position.y,
+                bg.position.z
+            );
         }
     }
 }
