@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 3;
     int currentHealth;
 
-Rigidbody2D rb;
+    Rigidbody2D rb;
     Vector2 movement;
 
     void Start()
@@ -35,36 +35,14 @@ Rigidbody2D rb;
     public void TakeDamage(int dmg)
     {
         currentHealth -= dmg;
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
+        if (currentHealth <= 0) Die();
     }
 
     void Die()
     {
-        // Primeiro tenta Level 1
-        var gm1 = FindObjectOfType<GameManager_Level1>();
-        if (gm1 != null)
-        {
-            gm1.LoseLife();
-            enabled = false;
-            return;
-        }
-
-        // Depois tenta Level 2
-        var gm2 = FindObjectOfType<GameManager_Level2>();
-        if (gm2 != null)
-        {
-            gm2.TakeDamage();
-            enabled = false;
-            return;
-        }
-
-        // Caso nenhuma cena tenha GameManager válido
-        Debug.LogWarning("Nenhum GameManager encontrado para processar a morte do jogador.");
+        var lm = FindObjectOfType<LevelManager>();
+        if (lm != null) lm.OnPlayerDefeated();
         enabled = false;
     }
-
 }
+
