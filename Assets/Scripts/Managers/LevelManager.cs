@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
     public GameObject victoryCanvas;
     public GameObject defeatCanvas;
 
-    private void Start()
+private void Start()
     {
         Time.timeScale = 1f;
 
@@ -35,10 +35,7 @@ public class LevelManager : MonoBehaviour
     public void OnNextLevelPressed()
     {
         Time.timeScale = 1f;
-
-        string currentScene = SceneManager.GetActiveScene().name;
-        string nextScene = GetNextSceneName(currentScene);
-
+        string nextScene = GetNextSceneName(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene(nextScene);
     }
 
@@ -54,37 +51,39 @@ public class LevelManager : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    // Retorna a próxima cena seguindo o padrão LevelX_Story → LevelX_Play → Level(X+1)_Story
-    // Se não houver próximo nível, retorna "EndGame"
     private string GetNextSceneName(string currentScene)
     {
         if (string.IsNullOrEmpty(currentScene)) return "MainMenu";
 
-        string[] parts = currentScene.Split('_'); // Ex: Level2_Play -> ["Level2","Play"]
+        string[] parts = currentScene.Split('_'); // Ex: Level3_Story -> ["Level3","Story"]
         if (parts.Length != 2) return "MainMenu";
 
-        string levelPart = parts[0]; // "Level2"
-        string typePart = parts[1];  // "Story" ou "Play"
+        string levelPart = parts[0];
+        string typePart = parts[1];
 
         string nextScene = "";
 
         if (typePart == "Story")
         {
-            nextScene = levelPart + "_Play";
+            // Passa para a cena Play do mesmo nível
+            string potentialNext = levelPart + "_Play";
+            if (Application.CanStreamedLevelBeLoaded(potentialNext))
+                nextScene = potentialNext;
+            else
+                nextScene = "EndGame"; // caso final
         }
         else if (typePart == "Play")
         {
+            // Passa para o Story do próximo nível
             int levelNumber = 0;
-            if (int.TryParse(levelPart.Substring(5), out levelNumber)) // "Level2" -> 2
+            if (int.TryParse(levelPart.Substring(5), out levelNumber))
             {
                 levelNumber++;
-                string potentialNextScene = "Level" + levelNumber + "_Story";
-
-                // Verifica se a cena existe no Build Settings
-                if (Application.CanStreamedLevelBeLoaded(potentialNextScene))
-                    nextScene = potentialNextScene;
+                string potentialNext = "Level" + levelNumber + "_Story";
+                if (Application.CanStreamedLevelBeLoaded(potentialNext))
+                    nextScene = potentialNext;
                 else
-                    nextScene = "EndGame"; // Último nível atingido
+                    nextScene = "EndGame"; // último nível
             }
             else
             {
@@ -100,5 +99,6 @@ public class LevelManager : MonoBehaviour
     }
 
 }
+
 
 

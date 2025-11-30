@@ -2524,7 +2524,7 @@ MonoBehaviour:
   - {fileID: 501947739}
   - {fileID: 1121303483}
   - {fileID: 1585537885}
-  surviveTime: 10
+  surviveTime: 15
   timerText: {fileID: 1847714718}
   playerCombat: {fileID: 1593271133}
 --- !u!4 &1995844993
