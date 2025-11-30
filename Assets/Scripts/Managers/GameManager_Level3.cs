@@ -7,16 +7,15 @@ public class GameManager_Level3 : MonoBehaviour
 {
     public static GameManager_Level3 Instance;
 
-    [Header("Player")]
+[Header("Player")]
+    public Player_Level3 player;
     public int maxLives = 3;
     private int currentLives;
     public Image[] lifeIcons;
-    public Player_Level3 player;
 
     [Header("Boss")]
     public Slider bossHealthBar;
     public int bossMaxHealth = 10;
-    private int bossCurrentHealth;
 
     [Header("UI")]
     public GameObject winScreen;
@@ -24,29 +23,20 @@ public class GameManager_Level3 : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
     void Start()
     {
         currentLives = maxLives;
-        bossCurrentHealth = bossMaxHealth;
         UpdateLivesUI();
-        UpdateBossHealthUI();
-
         if (winScreen) winScreen.SetActive(false);
         if (loseScreen) loseScreen.SetActive(false);
+        if (bossHealthBar != null) bossHealthBar.value = 1f;
     }
 
-    // ---------------- Player ----------------  
-
+    // ---------------- Player ----------------
     public void TakeDamage()
     {
         currentLives--;
@@ -54,9 +44,7 @@ public class GameManager_Level3 : MonoBehaviour
         UpdateLivesUI();
 
         if (currentLives <= 0)
-        {
             PlayerDefeated();
-        }
     }
 
     public void UpdateLivesUI()
@@ -68,30 +56,17 @@ public class GameManager_Level3 : MonoBehaviour
         }
     }
 
-    public void PlayerDefeated()
+    private void PlayerDefeated()
     {
         if (loseScreen) loseScreen.SetActive(true);
         Time.timeScale = 0f;
     }
 
-    // ---------------- Boss ----------------  
-
-    public void TakeBossDamage(int amount)
-    {
-        bossCurrentHealth -= amount;
-        if (bossCurrentHealth < 0) bossCurrentHealth = 0;
-        UpdateBossHealthUI();
-
-        if (bossCurrentHealth <= 0)
-        {
-            BossDefeated();
-        }
-    }
-
-    public void UpdateBossHealthUI()
+    // ---------------- Boss ----------------
+    public void UpdateBossHealthBar(int currentHealth, int maxHealth)
     {
         if (bossHealthBar != null)
-            bossHealthBar.value = (float)bossCurrentHealth / bossMaxHealth;
+            bossHealthBar.value = Mathf.Clamp01((float)currentHealth / maxHealth);
     }
 
     public void BossDefeated()
@@ -101,6 +76,7 @@ public class GameManager_Level3 : MonoBehaviour
     }
 
 }
+
 
 
 

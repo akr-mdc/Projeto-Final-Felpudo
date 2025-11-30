@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class Stalactite : MonoBehaviour
 {
     public float fallSpeed = 5f;
@@ -12,29 +13,27 @@ public class Stalactite : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 1f;
         rb.velocity = Vector2.down * fallSpeed;
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        // Se colidir com o Player ou chão, aplica efeito e destrói a estalactite
+        if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Ground"))
         {
-            GameManager_Level3.Instance.TakeDamage();
-            SpawnEffect();
-            Destroy(gameObject);
-        }
-        else if (collision.gameObject.CompareTag("Ground"))
-        {
-            SpawnEffect();
+            if (collision.gameObject.CompareTag("Player") && GameManager_Level3.Instance != null)
+            {
+                GameManager_Level3.Instance.TakeDamage();
+            }
+
+            if (hitEffect != null)
+                Instantiate(hitEffect, transform.position, Quaternion.identity);
+
             Destroy(gameObject);
         }
     }
 
-    void SpawnEffect()
-    {
-        if (hitEffect != null)
-            Instantiate(hitEffect, transform.position, Quaternion.identity);
-    }
 }
 
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2854209493523954537}
   - component: {fileID: 2821001406515587392}
   - component: {fileID: 8384253481109221200}
+  - component: {fileID: -1685473747433187096}
   m_Layer: 0
   m_Name: Spike
   m_TagString: Stalactite
@@ -112,7 +113,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!60 &8384253481109221200
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -181,3 +182,17 @@ PolygonCollider2D:
       - {x: 0.07, y: -1.15}
       - {x: 0.12, y: -0.84999996}
   m_UseDelaunayMesh: 0
+--- !u!114 &-1685473747433187096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2653445286881756829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a69f950f3e20f14f8f58c02564a9f56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallSpeed: 5
+  hitEffect: {fileID: 0}
