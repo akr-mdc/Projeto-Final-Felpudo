@@ -1556,6 +1556,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spacebar Key
       objectReference: {fileID: 0}
+    - target: {fileID: 4989476263746418906, guid: 38b1bb118eb3ae840ae138294c53f4e3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: dac48cb7aea3fc845a21909bc33a0319, type: 2}
     - target: {fileID: 5931936243576299267, guid: 38b1bb118eb3ae840ae138294c53f4e3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.4
