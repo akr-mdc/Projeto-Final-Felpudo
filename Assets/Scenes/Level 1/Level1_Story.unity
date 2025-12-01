@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 276446739}
   - component: {fileID: 276446738}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Story Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -464,7 +464,7 @@ MonoBehaviour:
     Mas a paz n\xE3o dura muito\u2026\r\nFofura, sua parceira, desapareceu!\r\nSem
     perder tempo, Felpudo decide seguir em busca de pistas e descobre uma pena escura
     que deve pertencer a Uruca um criminoso perigoso com motiva\xE7\xF5es obscuras.\r\nDizem
-    que Uruca se esconde em uma caverna na floresta escura e Felpudo est\xE1 disposto
+    que Uruca esconde-se em uma caverna na floresta escura e Felpudo est\xE1 disposto
     a resgatar Fofura a qualquer custo!\r\nCom isso em mente Felpudo vai em dire\xE7\xE3o
     a sua pequena aeronave, pois um papagaio pode voar r\xE1pido, mas um avi\xE3o
     voa ainda mais r\xE1pido e n\xE3o h\xE1 tempo a perder!"

@@ -647,8 +647,8 @@ MonoBehaviour:
     a proximidade com o esconderijo de Uruca.\r\nAo avistar um local suspeito, Felpudo
     pousa a certa dist\xE2ncia para n\xE3o levantar suspeitas e se aproxima...\r\nMas
     os inimigos n\xE3o desistem: eles n\xE3o s\xF3 emboscam Felpudo como agora usam
-    barris como armaduras e avan\xE7am contra Felpudo!\r\nFelizmente, ele ainda carrega
-    seu martelo guardado no avi\xE3o, pronto para se defender.\r\n"
+    barris como armaduras e avan\xE7am contra o papagaio!\r\nFelizmente, ele ainda
+    carrega o martelo que guardava em seu avi\xE3o, pronto para se defender.\r\n"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0b2f8f6cf883ec49a0e5941559f1f3f, type: 2}
   m_sharedMaterial: {fileID: -4591780809098031376, guid: b0b2f8f6cf883ec49a0e5941559f1f3f, type: 2}

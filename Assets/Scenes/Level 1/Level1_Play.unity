@@ -470,8 +470,8 @@ MonoBehaviour:
   enemyPrefab: {fileID: 356548718131388966, guid: f587d7e380cf14244b5c0dbfceeb1cd8, type: 3}
   minSpawnTime: 1.5
   maxSpawnTime: 3
-  minY: -2
-  maxY: 2
+  minY: -3
+  maxY: 4
 --- !u!4 &261956881
 Transform:
   m_ObjectHideFlags: 0
@@ -3083,7 +3083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4726551586327688490, guid: bc097983ce36ae04bb73d3bbf970d366, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.1
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4726551586327688490, guid: bc097983ce36ae04bb73d3bbf970d366, type: 3}
       propertyPath: m_LocalPosition.y

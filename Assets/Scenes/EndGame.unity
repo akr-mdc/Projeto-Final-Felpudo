@@ -434,8 +434,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1230610640}
   - {fileID: 844052947}
+  - {fileID: 1230610640}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1119,8 +1119,9 @@ MonoBehaviour:
   m_text: "Com habilidade e bravura, Felpudo \xE9 capaz de derrotar Uruca e libertar
     Fofura de sua pris\xE3o.\r\nFinalmente, eles est\xE3o juntos novamente.\r\nFofura
     explica o real motivo do seu rapto, Uruca estava atr\xE1s do pingente dourado
-    em seu colar e afirmou que ele revelaria segredos que ningu\xE9m poderia imaginar\u2026\r\nNossos
-    her\xF3is est\xE3o a salvo, mas uma nova aventura em busca de respostas os aguarda!"
+    em seu colar e afirmou que ele revelaria segredos que \nnenhum deles poderia
+    imaginar\u2026\r\nNossos her\xF3is est\xE3o a salvo, mas uma nova aventura em
+    busca de respostas os aguarda!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0b2f8f6cf883ec49a0e5941559f1f3f, type: 2}
   m_sharedMaterial: {fileID: -4591780809098031376, guid: b0b2f8f6cf883ec49a0e5941559f1f3f, type: 2}

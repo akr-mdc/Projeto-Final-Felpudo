@@ -1110,7 +1110,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 8565779182616530490, guid: dabc29598dfbdba448e77e8b3225410e, type: 3}
-  spawnInterval: 4
+  spawnInterval: 2
   randomOffset: 0.3
 --- !u!1 &1312664896
 GameObject:
@@ -1515,7 +1515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1449554432455997005, guid: 2e4973f4e2b43814ca10caeb92621294, type: 3}
-  spawnInterval: 4
+  spawnInterval: 2
   randomOffset: 0.3
 --- !u!1 &1474844882
 GameObject:
@@ -2247,7 +2247,7 @@ MonoBehaviour:
   - {fileID: 501947739}
   - {fileID: 1121303483}
   - {fileID: 1585537885}
-  surviveTime: 15
+  surviveTime: 20
   timerText: {fileID: 1847714718}
   playerCombat: {fileID: 1593271133}
 --- !u!4 &1995844993

@@ -289,7 +289,7 @@ MonoBehaviour:
   anim: {fileID: 9178456594857366888}
   stonePrefab: {fileID: 3520010127836410099, guid: df127cfcbcf9ac94696cc6dee43cd777, type: 3}
   throwPoint: {fileID: 3311643491975172507}
-  throwForce: 30
+  throwForce: 20
   spriteRenderer: {fileID: 4676670763511832765}
   flashDuration: 0.1
 --- !u!1 &9078544244470734542

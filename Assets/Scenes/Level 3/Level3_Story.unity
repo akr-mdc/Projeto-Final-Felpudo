@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 539739590}
   - component: {fileID: 539739591}
   m_Layer: 0
-  m_Name: bgFase6@2x
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -471,11 +471,11 @@ Transform:
   m_GameObject: {fileID: 539739589}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.744619, y: -1.4431744, z: 0.06493254}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 1716137918}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &539739591
 SpriteRenderer:
@@ -850,38 +850,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1716137917
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1716137918}
-  m_Layer: 0
-  m_Name: Background
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1716137918
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1716137917}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.744619, y: 1.4431744, z: -0.06493254}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 539739590}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1761389489
 GameObject:
   m_ObjectHideFlags: 0
@@ -1031,12 +999,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Superado o ataque surpresa Felpudo finalmente adentra a caverna. Dentro
-    dela, Felpudo avista Fofura, trancada em uma jaula sobre um pedestal.\r\nMas
-    antes que seja capas de alcan\xE7\xE1-la surge Uruca, voando agilmente pelas
-    rochas pontiagudas e derrubando estalactites sobre Felpudo.\r\nO martelo sozinho
-    n\xE3o \xE9 suficiente, mas Felpudo encontra pedras espalhadas pelo ch\xE3o e
-    contra-ataca.\r\nA batalha final inicia!"
+  m_text: "Superado o ataque surpresa, Felpudo finalmente adentra a caverna. Dentro
+    dela, Ele avista Fofura, trancada em uma esp\xE9cie gaiola que est\xE1 sobre
+    um pedestal.\r\nMas antes que seja capas de alcan\xE7\xE1-la, surge Uruca, voando
+    agilmente pelas rochas pontiagudas e derrubando estalactites sobre Felpudo.\r\nSeu
+    velho martelo sozinho n\xE3o dar\xE1 conta, mas Felpudo encontra pedras espalhadas
+    pelo ch\xE3o e contra-ataca.\r\nA batalha final se inicia!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0b2f8f6cf883ec49a0e5941559f1f3f, type: 2}
   m_sharedMaterial: {fileID: -4591780809098031376, guid: b0b2f8f6cf883ec49a0e5941559f1f3f, type: 2}
@@ -1121,6 +1089,6 @@ SceneRoots:
   - {fileID: 1583011148}
   - {fileID: 481941004}
   - {fileID: 638331669}
-  - {fileID: 1716137918}
+  - {fileID: 539739590}
   - {fileID: 69751264}
   - {fileID: 982588722}
