@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCombat_Level2_Touch : MonoBehaviour
@@ -14,8 +13,6 @@ public class PlayerCombat_Level2_Touch : MonoBehaviour
     public float attackDuration = 0.15f;
     private bool isAttacking = false;
 
-    private int lastDir = 1; // 1 direita, -1 esquerda
-
     [Header("Damage Flash")]
     public SpriteRenderer spriteRenderer;
     public float flashDuration = 0.1f;
@@ -29,25 +26,22 @@ public class PlayerCombat_Level2_Touch : MonoBehaviour
 
     void Update()
     {
-        UpdateDirection();
-
-        if (!isAttacking && TouchInput.actionPressed)
+        if (!isAttacking)
         {
-            TouchInput.actionPressed = false;
-
-            if (lastDir == -1)
+            // Botão de ataque esquerdo
+            if (TouchInput.attackLeft)
+            {
+                TouchInput.attackLeft = false;
                 StartCoroutine(AttackLeft());
-            else
-                StartCoroutine(AttackRight());
-        }
-    }
+            }
 
-    void UpdateDirection()
-    {
-        if (TouchInput.moveLeft)
-            lastDir = -1;
-        else if (TouchInput.moveRight)
-            lastDir = 1;
+            // Botão de ataque direito
+            if (TouchInput.attackRight)
+            {
+                TouchInput.attackRight = false;
+                StartCoroutine(AttackRight());
+            }
+        }
     }
 
     IEnumerator AttackLeft()
