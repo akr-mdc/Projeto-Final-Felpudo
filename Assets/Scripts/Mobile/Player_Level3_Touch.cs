@@ -1,0 +1,85 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Player_Level3_Touch : MonoBehaviour
+{
+    [Header("Movement")]
+    public float moveSpeed = 5f;
+    private Rigidbody2D rb;
+    private Vector2 movement;
+    private Vector3 originalScale;
+
+    [Header("Animator")]
+    public Animator anim;
+
+    [Header("Stone Throwing")]
+    public GameObject stonePrefab;
+    public Transform throwPoint;
+    public float throwForce = 10f;
+
+    [Header("Damage Flash")]
+    public SpriteRenderer spriteRenderer;
+    public float flashDuration = 0.2f;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        originalScale = transform.localScale;
+    }
+
+    void Update()
+    {
+        HandleMovement();
+        HandleThrow();
+    }
+
+    void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    void HandleMovement()
+    {
+        if (TouchInput.moveLeft)
+            movement = new Vector2(-1, 0f);
+        else if (TouchInput.moveRight)
+            movement = new Vector2(1, 0f);
+        else
+            movement = Vector2.zero;
+
+        anim.SetFloat("Speed", Mathf.Abs(movement.x));
+
+        if (movement.x > 0f)
+            transform.localScale = new Vector3(Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
+        else if (movement.x < 0f)
+            transform.localScale = new Vector3(-Mathf.Abs(originalScale.x), originalScale.y, originalScale.z);
+    }
+
+    void HandleThrow()
+    {
+        if (TouchInput.actionPressed && stonePrefab != null)
+        {
+            TouchInput.actionPressed = false;
+
+            GameObject stone = Instantiate(stonePrefab, throwPoint.position, Quaternion.identity);
+            Rigidbody2D stoneRb = stone.GetComponent<Rigidbody2D>();
+            if (stoneRb != null)
+                stoneRb.velocity = Vector2.up * throwForce;
+        }
+    }
+
+    public void TriggerFlash()
+    {
+        if (spriteRenderer != null)
+            StartCoroutine(FlashCoroutine());
+    }
+
+    IEnumerator FlashCoroutine()
+    {
+        Color original = spriteRenderer.color;
+        spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(flashDuration);
+        spriteRenderer.color = original;
+    }
+}

@@ -76,17 +76,3 @@ public class Player_Level3 : MonoBehaviour
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
